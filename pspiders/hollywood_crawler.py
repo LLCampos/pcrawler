@@ -8,8 +8,16 @@ class HollywoodCrawler(scrapy.Spider):
     domain = 'http://canalhollywood.pt'
 
     def parse(self, response):
-        for passatempo in response.xpath('//div[contains(@class, "entrada-blog")]'):
+
+        passatempos_query = '//div[contains(@class, "entrada-blog")]'
+
+        for passatempo in response.xpath(passatempos_query):
+
+            passatempo_name = passatempo.xpath('div/h2/text()').extract_first()
+            # href is this page is relative, so I need to add the domain
+            passatempo_link = HollywoodCrawler.domain + \
+                passatempo.xpath('div/a/@href').extract_first()
+
             yield {
-                # href is this page is relative, so I need to add the domain
-                passatempo.xpath('div/h2/text()').extract_first(): HollywoodCrawler.domain + passatempo.xpath('div/a/@href').extract_first()
+                passatempo_name: passatempo_link
             }

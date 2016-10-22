@@ -6,7 +6,14 @@ class ArteFactosCrawler(scrapy.Spider):
     start_urls = ['http://www.arte-factos.net/passatempos-af/']
 
     def parse(self, response):
-        for passatempo in response.xpath('//div[@class="titulo-pagina"]/a'):
+
+        passatempos_query = '//div[@class="titulo-pagina"]/a'
+
+        for passatempo in response.xpath(passatempos_query):
+
+            passatempo_name = passatempo.xpath('h4/text()').extract_first()
+            passatempo_link = passatempo.xpath('@href').extract_first()
+
             yield {
-                passatempo.xpath('h4/text()').extract_first(): passatempo.xpath('@href').extract_first()
+                passatempo_name: passatempo_link
             }
