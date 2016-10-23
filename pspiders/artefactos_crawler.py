@@ -12,8 +12,9 @@ class ArteFactosCrawler(scrapy.Spider):
         for passatempo in response.xpath(passatempos_query):
 
             passatempo_name = passatempo.xpath('h4/text()').extract_first()
-            passatempo_link = passatempo.xpath('@href').extract_first()
+            passatempo_url = passatempo.xpath('@href').extract_first()
 
             yield {
-                passatempo_name: passatempo_link
+                "passatempo_name": passatempo_name,
+                "passatempo_url": passatempo_url
             }

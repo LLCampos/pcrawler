@@ -15,9 +15,10 @@ class HollywoodCrawler(scrapy.Spider):
 
             passatempo_name = passatempo.xpath('div/h2/text()').extract_first()
             # href is this page is relative, so I need to add the domain
-            passatempo_link = HollywoodCrawler.domain + \
+            passatempo_url = HollywoodCrawler.domain + \
                 passatempo.xpath('div/a/@href').extract_first()
 
             yield {
-                passatempo_name: passatempo_link
+                "passatempo_name": passatempo_name,
+                "passatempo_url": passatempo_url
             }

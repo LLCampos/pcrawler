@@ -17,9 +17,10 @@ class RitmosBlues(scrapy.Spider):
             # href is this page is relative, so I need to add the domain
             # also, the href in this page is like this: ../bieber/passatempo/",
             # so I take off the two points
-            passatempo_link = RitmosBlues.domain + \
+            passatempo_url = RitmosBlues.domain + \
                 passatempo.xpath('.//table//a/@href').extract_first()[2:]
 
             yield {
-                passatempo_name: passatempo_link
+                "passatempo_name": passatempo_name,
+                "passatempo_url": passatempo_url
             }
