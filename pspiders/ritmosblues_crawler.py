@@ -21,6 +21,6 @@ class RitmosBlues(scrapy.Spider):
                 passatempo.xpath('.//table//a/@href').extract_first()[2:]
 
             yield {
-                "passatempo_name": passatempo_name,
-                "passatempo_url": passatempo_url
+                "name": passatempo_name,
+                "url": passatempo_url
             }

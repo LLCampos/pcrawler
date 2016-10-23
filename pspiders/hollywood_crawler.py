@@ -19,6 +19,6 @@ class HollywoodCrawler(scrapy.Spider):
                 passatempo.xpath('div/a/@href').extract_first()
 
             yield {
-                "passatempo_name": passatempo_name,
-                "passatempo_url": passatempo_url
+                "name": passatempo_name,
+                "url": passatempo_url
             }

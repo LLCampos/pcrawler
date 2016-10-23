@@ -15,6 +15,6 @@ class EcrawlerCrawer(scrapy.Spider):
             passatempo_url = passatempo.xpath('.//a/@href').extract_first()
 
             yield {
-                "passatempo_name": passatempo_name,
-                "passatempo_url": passatempo_url
+                "name": passatempo_name,
+                "url": passatempo_url
             }
