@@ -3,6 +3,7 @@ import json
 from datetime import timedelta, datetime
 from functools import update_wrapper
 import subprocess
+import os
 
 
 # http://flask.pocoo.org/snippets/56/
@@ -69,15 +70,18 @@ def run_all_spiders():
 
 def last_update_was_today():
 
-    with open(PDATA_FOLDER + PDATA_LASTUPDATE) as last_update_file:
-        last_update_dict = json.load(last_update_file)
+    last_update_file_path = PDATA_FOLDER + PDATA_LASTUPDATE
+    if os.path.isfile(last_update_file_path):
+        with open(last_update_file_path) as last_update_file:
+            last_update_dict = json.load(last_update_file)
 
-    last_update_date = datetime.strptime(last_update_dict['date'],
-                                         '%d/%m/%Y').date()
-    today_date = datetime.today().date()
+        last_update_date = datetime.strptime(last_update_dict['date'],
+                                             '%d/%m/%Y').date()
+        today_date = datetime.today().date()
 
-    if today_date == last_update_date:
-        return True
+        if today_date == last_update_date:
+            return True
+
     return False
 
 
