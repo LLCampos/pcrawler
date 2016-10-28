@@ -1,3 +1,5 @@
+!#/bin/bash
+
 # Runs all the spiders in ./pspiders/
 
 pspiders_folder="pspiders/"
