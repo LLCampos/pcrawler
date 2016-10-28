@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, make_response, request, current_app
 import json
-from datetime import timedelta
+from datetime import timedelta, datetime
 from functools import update_wrapper
+import subprocess
 
 
 # http://flask.pocoo.org/snippets/56/
@@ -47,6 +48,20 @@ def crossdomain(origin=None, methods=None, headers=None,
     return decorator
 
 
+def run_all_spiders():
+    """Runs a bash script which runs all the spiders and creates output files.
+    """
+    cmd = ['bash', './run_all_spiders.sh']
+
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE,
+                         stdin=subprocess.PIPE)
+
+    out, err = p.communicate()
+    print out
+    print err
+
+
 HOST = 'localhost'
 PORT = 5001
 DEBUG = False
@@ -56,6 +71,20 @@ app = Flask(__name__)
 PDATA_FOLDER = 'pdata/'
 PDATA_LASTUPDATE = 'last_update_date.json'
 PDATA_COMPLETE = 'complete.json'
+
+
+def last_update_was_today():
+
+    with open(PDATA_FOLDER + PDATA_LASTUPDATE) as last_update_file:
+        last_update_dict = json.load(last_update_file)
+
+    last_update_date = datetime.strptime(last_update_dict['date'],
+                                         '%d/%m/%Y').date()
+    today_date = datetime.today().date()
+
+    if today_date == last_update_date:
+        return True
+    return False
 
 
 @app.route('/last_update', methods=['GET'])
@@ -71,6 +100,9 @@ def last_update():
 @app.route('/passatempos', methods=['GET'])
 @crossdomain(origin='*')
 def passatempos():
+
+    if not last_update_was_today():
+        run_all_spiders()
 
     with open(PDATA_FOLDER + PDATA_COMPLETE) as complete_pdata_file:
         complete_pdata_dict = json.load(complete_pdata_file)
