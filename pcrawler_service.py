@@ -48,6 +48,11 @@ def crossdomain(origin=None, methods=None, headers=None,
     return decorator
 
 
+PDATA_FOLDER = 'pdata/'
+PDATA_LASTUPDATE = 'last_update_date.json'
+PDATA_COMPLETE = 'complete.json'
+
+
 def run_all_spiders():
     """Runs a bash script which runs all the spiders and creates output files.
     """
@@ -60,17 +65,6 @@ def run_all_spiders():
     out, err = p.communicate()
     print out
     print err
-
-
-HOST = 'localhost'
-PORT = 5001
-DEBUG = False
-
-app = Flask(__name__)
-
-PDATA_FOLDER = 'pdata/'
-PDATA_LASTUPDATE = 'last_update_date.json'
-PDATA_COMPLETE = 'complete.json'
 
 
 def last_update_was_today():
@@ -87,14 +81,11 @@ def last_update_was_today():
     return False
 
 
-@app.route('/last_update', methods=['GET'])
-@crossdomain(origin='*')
-def last_update():
+HOST = 'localhost'
+PORT = 5001
+DEBUG = False
 
-    with open(PDATA_FOLDER + PDATA_LASTUPDATE) as last_update_file:
-        last_update_dict = json.load(last_update_file)
-
-    return jsonify(**last_update_dict)
+app = Flask(__name__)
 
 
 @app.route('/passatempos', methods=['GET'])
