@@ -102,6 +102,11 @@ def passatempos():
     with open(PDATA_FOLDER + PDATA_COMPLETE) as complete_pdata_file:
         complete_pdata_dict = json.load(complete_pdata_file)
 
+    # If JSON dict is empty
+    if not complete_pdata_dict:
+        os.remove(PDATA_FOLDER + PDATA_LASTUPDATE)
+        raise ValueError('JSON is empty!')
+
     return jsonify(**complete_pdata_dict)
 
 
