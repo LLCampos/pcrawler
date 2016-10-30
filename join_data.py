@@ -41,6 +41,11 @@ def join_pdata():
             # corrects the problem.
             pdata_str_corrected = pdata_str.replace('&QUOT;', '\\"')
 
+            if not pdata_str_corrected:
+                print 'error: probably, this file is empty: {}.' \
+                    .format(pdata_filename)
+                continue
+
             pdata_json = json.loads(pdata_str_corrected)
 
             # example.json -> I only want the "example" part
