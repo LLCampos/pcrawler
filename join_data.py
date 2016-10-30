@@ -35,9 +35,17 @@ def join_pdata():
             continue
 
         with open(pdata_path + pdata_filename) as pdata_file:
-            pdata_json = json.load(pdata_file)
+            pdata_str = pdata_file.read()
+            # Scrapy escapes some quotations as &QUOT; instead of \". I don't
+            # know why, but it raises problems in the front-end. This hack
+            # corrects the problem.
+            pdata_str_corrected = pdata_str.replace('&QUOT;', '\\"')
+
+            pdata_json = json.loads(pdata_str_corrected)
+
             # example.json -> I only want the "example" part
             site_name = pdata_filename.split('.')[0]
+
             joined_pdata[site_name] = pdata_json
 
     with open(pdata_path + joined_pdata_filename, 'w') as joined_pdata_file:
