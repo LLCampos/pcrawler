@@ -13,7 +13,7 @@ class CinecartazCrawler(scrapy.Spider):
 
         for passatempo in response.xpath(passatempos_query):
 
-            passatempo_name = passatempo.xpath('//h3').extract_first()
+            passatempo_name = passatempo.xpath('ul/li/h3').extract_first()
             # href is this page is relative, so I need to add the domain
             passatempo_url = CinecartazCrawler.domain + \
                 passatempo.xpath('a/@href').extract_first()
