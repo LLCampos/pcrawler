@@ -8,7 +8,7 @@ class SplitscreenCrawler(scrapy.Spider):
     def parse(self, response):
 
         passatempos_query = '//div[@class="post-body entry-content"]/div[2]/div[2]/div'
-        names = response.xpath(passatempos_query + '/b')
+        names = response.xpath(passatempos_query + '/b/text()')
         urls = response.xpath(passatempos_query + '/a/@href')
 
         if len(names) != len(urls):
