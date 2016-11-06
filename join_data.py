@@ -39,7 +39,8 @@ def join_pdata():
             # Scrapy escapes some quotations as &QUOT; instead of \". I don't
             # know why, but it raises problems in the front-end. This hack
             # corrects the problem.
-            pdata_str_corrected = pdata_str.replace('&QUOT;', '\\"')
+            pdata_str_corrected = pdata_str.replace('&QUOT;', '\\"') \
+                                           .replace('&AMP;', '&')
 
             if not pdata_str_corrected:
                 print 'error: probably, this file is empty: {}.' \
