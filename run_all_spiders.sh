@@ -17,7 +17,7 @@ do
     # If previous JSON file is not deleted, the new content will be appended
     rm $json_path
 
-    scrapy runspider $filename -o $json_path
+    scrapy runspider $filename -o $json_path -s LOG_FILE='../log/scrapy.log'
 done
 
 # Now that the data was extracted, join all the data into one file
