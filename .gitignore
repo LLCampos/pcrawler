@@ -1,5 +1,8 @@
 *.pyc
 *.sublime-project
 *.sublime-workspace
+.idea/
+
+
 pcrawl_env/*
 pdata/*
