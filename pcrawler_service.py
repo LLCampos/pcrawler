@@ -96,8 +96,8 @@ app = Flask(__name__)
 @crossdomain(origin='*')
 def passatempos():
 
-    if not last_update_was_today():
-        run_all_spiders()
+    #if not last_update_was_today():
+    run_all_spiders()
 
     with open(PDATA_FOLDER + PDATA_COMPLETE) as complete_pdata_file:
         complete_pdata_dict = json.load(complete_pdata_file)
@@ -111,4 +111,8 @@ def passatempos():
 
 
 if __name__ == '__main__':
+
+    import logging
+    logging.basicConfig(filename='log/service.log', level=logging.DEBUG)
+
     app.run(host=HOST, port=PORT, debug=DEBUG)
