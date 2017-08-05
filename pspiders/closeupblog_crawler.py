@@ -7,7 +7,7 @@ class CloseUpBlogCrawler(scrapy.Spider):
 
     def parse(self, response):
 
-        passatempos_query = '//div[@class="separator"]/b/a'
+        passatempos_query = '//div[@class="post hentry"]//b/a'
 
         for passatempo in response.xpath(passatempos_query):
 
