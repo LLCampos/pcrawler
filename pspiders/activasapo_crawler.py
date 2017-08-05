@@ -9,7 +9,7 @@ class ActivaSapoCrawler(scrapy.Spider):
 
     def parse(self, response):
 
-        passatempos_query = '//div[@class="textDetails"]/h2[@class="title"]/a'
+        passatempos_query = '//div[@class="textDetails"]/h1[@class="title"]/a'
 
         for passatempo in response.xpath(passatempos_query):
 
