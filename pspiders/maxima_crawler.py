@@ -3,13 +3,13 @@ import scrapy
 
 class MaximaCrawler(scrapy.Spider):
     name = 'maxima'
-    start_urls = ['http://www.maxima.pt/passatempos.html']
+    start_urls = ['http://www.maxima.pt/passatempos']
 
     domain = 'http://www.maxima.pt'
 
     def parse(self, response):
 
-        passatempos_query = '//div[@class="canal_subdestaqueInfo"]/a[2]'
+        passatempos_query = '//div[@class="mainAlign"]/h1/a'
 
         for passatempo in response.xpath(passatempos_query):
 
