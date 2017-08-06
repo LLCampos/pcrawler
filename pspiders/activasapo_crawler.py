@@ -2,7 +2,7 @@ import scrapy
 
 
 class ActivaSapoCrawler(scrapy.Spider):
-    name = 'activa sapo'
+    name = 'activasapo'
     start_urls = ['http://activa.sapo.pt/passatempos/']
 
     domain = 'http://activa.sapo.pt'
