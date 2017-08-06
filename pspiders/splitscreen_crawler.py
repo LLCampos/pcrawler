@@ -7,18 +7,13 @@ class SplitscreenCrawler(scrapy.Spider):
 
     def parse(self, response):
 
-        passatempos_query = '//div[@class="post-body entry-content"]/div[2]/div[2]/div'
-        names = response.xpath(passatempos_query + '/b/text()')
-        urls = response.xpath(passatempos_query + '/a/@href')
+        passatempos_query = '//div[@class="post-body entry-content"]/div[2]/div[2]/div/a'
 
-        if len(names) != len(urls):
-            raise ValueError('There\'s something wrong '
-                             'in the xpath expressions')
 
-        for i in range(len(names)):
+        for passatempo in response.xpath(passatempos_query):
 
-            passatempo_name = names[i].extract()
-            passatempo_url = urls[i].extract()
+            passatempo_url = passatempo.xpath('@href').extract_first()
+            passatempo_name = passatempo_url.split('/')[-1]
 
             yield {
                 "name": passatempo_name,
