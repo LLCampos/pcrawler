@@ -14,10 +14,7 @@ class MTVCrawler(scrapy.Spider):
         for passatempo in response.xpath(passatempos_query):
 
             passatempo_name = passatempo.xpath('div[@class="text"]/h4/text()').extract_first()
-
-            # href is this page is relative, so I need to add the domain
-            passatempo_url = MTVCrawler.domain + \
-                passatempo.xpath('@href').extract_first()
+            passatempo_url = passatempo.xpath('@href').extract_first()
 
             yield {
                 "name": passatempo_name,
